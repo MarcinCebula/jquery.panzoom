@@ -1,6 +1,6 @@
 /**
  * @license jquery.panzoom.js v2.0.5
- * Updated: Thu Jul 03 2014
+ * Updated: Sat Jul 26 2014
  * Add pan and zoom functionality to any element
  * Copyright (c) 2014 timmy willison
  * Released under the MIT license
@@ -321,6 +321,10 @@
 	Panzoom.events = $.pointertouch;
 
 	Panzoom.defaults = {
+    // This allows for panning with one or two fingers.
+    // By default: 'oneFinger'
+    panInteractionType: 'oneFinger',
+
 		// Should always be non-empty
 		// Used to bind jQuery events without collisions
 		// A guid is not added here as different instantiations/versions of panzoom
@@ -927,18 +931,25 @@
 				}
 			});
 
+      var isAllowedToPanOrZoom = function(e, touches) {
+        var isSingleTouchAllowed = function() {
+          return touches && ((touches.length === 1 && !options.disablePan) || touches.length === 2);
+        };
+        var isDoubleTouchAllowed = function() {
+          return touches && ((touches.length === 2 && !options.disablePan) || touches.length === 2);
+        };
+        return (e.type === 'touchstart' ?
+				 // Touch
+         (options.panInteractionType === 'twoFingers' ? isDoubleTouchAllowed() : isSingleTouchAllowed()) :
+				 // Mouse/Pointer: Ignore right click
+				!options.disablePan && e.which === 1);
+      };
 			// Bind $elem drag and click/touchdown events
 			// Bind touchstart if either panning or zooming is enabled
 			if (!options.disablePan || !options.disableZoom) {
 				events[ str_start ] = function(e) {
-					var touches;
-					if (e.type === 'touchstart' ?
-						// Touch
-						(touches = e.touches) &&
-							((touches.length === 1 && !options.disablePan) || touches.length === 2) :
-						// Mouse/Pointer: Ignore right click
-						!options.disablePan && e.which === 1) {
-
+					var touches = e.touches;
+					if(isAllowedToPanOrZoom(e, touches)) {
 						e.preventDefault();
 						e.stopPropagation();
 						self._startMove(e, touches);

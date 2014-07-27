@@ -1,3 +1,15 @@
+#Marcin K Cebual - Specific changes
+Allow for one of two finger panning. This is useful if you want to embed the panning and zooming functionality inside a Slidebox.
+
+```js
+  $('.panzoom-elements').panzoom({
+   // By default: 'oneFinger'
+   panInteractionType: 'oneFinger'  // --options: ['oneFinger', 'twoFinger']
+  });
+```
+PS. I guess it would be easy enough to add Multi N finger panning interaction. Will add as soon as I find more time.
+
+
 # jQuery Panzoom
 
 [![Build Status](https://travis-ci.org/timmywil/jquery.panzoom.png?branch=master)](https://travis-ci.org/timmywil/jquery.panzoom)
