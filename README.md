@@ -1,4 +1,4 @@
-#Marcin K Cebual - Specific changes
+#Marcin K Cebula - Specific changes
 Allow for one of two finger panning. This is useful if you want to embed the panning and zooming functionality inside a Slidebox.
 
 ```js
