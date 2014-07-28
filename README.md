@@ -4,7 +4,7 @@ Allow for one of two finger panning. This is useful if you want to embed the pan
 ```js
   $('.panzoom-elements').panzoom({
    // By default: 'oneFinger'
-   panInteractionType: 'oneFinger'  // --options: ['oneFinger', 'twoFinger']
+   panInteractionType: 'oneFinger'  // --options: ['oneFinger', 'twoFingers']
   });
 ```
 PS. I guess it would be easy enough to add Multi N finger panning interaction. Will add as soon as I find more time.
